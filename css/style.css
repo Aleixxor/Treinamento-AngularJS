@@ -9,6 +9,18 @@
     margin-left: 0px !important;
 }
 
+.isPlaying{
+    font-size: 26px;
+    position: absolute;
+    top: 65px;
+    right: -8px;
+}
+
+.playPreview{
+    cursor: pointer;
+    border-left: 1px solid #d6d8db;
+}
+
 #searchBar{
     height: 40px;
     border: none;
@@ -36,7 +48,6 @@
 }
 
 .alert-secondary{
-    cursor: pointer;
     color: #383d41;
     background-color: #e2e3e5;
     border-color: #d6d8db;
