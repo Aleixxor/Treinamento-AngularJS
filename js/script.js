@@ -6,11 +6,18 @@ myApp.controller("listaMusicas", ['$http', listaMusicas]);
 function listaMusicas($http){
   const vm = this;
 
+  vm.isPlaying = false;
+
   vm.onSearch = onSearch;
   vm.numberOfPages = numberOfPages;
   vm.currentPage = 0;
   vm.pageSize = 10;
-  
+  vm.resultPage = [];
+  vm.previousPage = previousPage;
+  vm.nextPage = nextPage;
+  vm.playPreview = playPreview;
+  vm.preview;
+
   this.searchBar;
   
   setValues($http);
@@ -38,6 +45,8 @@ function listaMusicas($http){
       result = data.data.results;
       vm.results = data.data.results;
       console.log(getResults());
+      vm.currentPage = 0;
+      changeResultPage();
     });
     return result;
   }
@@ -52,17 +61,45 @@ function listaMusicas($http){
     return vm.results;
   }
 
+  function nextPage(){
+    vm.currentPage=vm.currentPage+1;
+    changeResultPage();
+  }
+
+  function previousPage(){
+    vm.currentPage=vm.currentPage-1;
+    changeResultPage();
+  }
+
+  function changeResultPage(){
+    vm.resultPage = [];
+    console.log("Current page: "+vm.currentPage);
+      for(var i = 0; (i<10 && i<vm.results.length); i++){
+        var position = i+(10*vm.currentPage);
+        console.log(position)
+        vm.resultPage.push(vm.results[position]);
+      }
+      console.log("resultsPage: ");
+      console.log(vm.resultPage);
+  };
+
   function numberOfPages () {
       return Math.ceil(vm.results.length / vm.pageSize);
   }
 
+  function playPreview(url){
+    console.log("Preview: ");
+    console.log(url);
+    vm.preview = new Audio(url);
+    if(!vm.isPlaying){
+      vm.preview.play();
+    }else{
+      vm.preview.pause();
+    }
+    vm.isPlaying = !vm.isPlaying;
+  }
+
 }
-
-myApp.filter('startFrom', function() {
-
-  start = +start; //parse to int
-  return input.slice(start);
-});
 
 
   myApp.config(function ($stateProvider) {
@@ -76,7 +113,7 @@ myApp.filter('startFrom', function() {
               <i class="glyphicon glyphicon-search searchIcon"></i></div>
       </div>
       <div class="center">
-          <div ng-repeat="music in vm.results | limitTo:(pageSizeoffset - list.length)" class="co-10 alert alert-secondary result" role="alert">
+          <div ng-repeat="music in vm.resultPage" ng-click="vm.playPreview(music.previewUrl)" class="co-10 alert alert-secondary result" role="alert">
               <div class="co-2">
                   <img style="border-radius: 5px; border: 1px solid #383d41" width="80px" src={{music.artworkUrl100}}>
               </div>
@@ -92,9 +129,11 @@ myApp.filter('startFrom', function() {
               <i class="glyphicon glyphicon-exclamation-sign"></i> No results found
           </div>
           <br><br><br>
-          <button ng-disabled="vm.currentPage == 0" ng-click="vm.currentPage=vm.currentPage-1"> Previous </button>
+          <div ng-if="vm.results.length != undefined" class="co-12">
+          <button ng-disabled="vm.currentPage == 0" ng-click="vm.previousPage()"> Previous </button>
             Page {{vm.currentPage+1}} of {{vm.numberOfPages()}}
-          <button ng-disabled="vm.currentPage >= results.length/vm.pageSize - 1" ng-click="vm.currentPage=vm.currentPage+1">Next</button>
+          <button ng-disabled="vm.currentPage > ({{vm.numberOfPages()}}-2)" ng-click="vm.nextPage()">Next</button>
+          </div>
       </div>`
     }
   
