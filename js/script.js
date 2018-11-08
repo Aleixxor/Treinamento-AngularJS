@@ -59,10 +59,9 @@ function listaMusicas($http){
 }
 
 myApp.filter('startFrom', function() {
-  return (input, start) => {
-    start = +start; //parse to int
-    return input.slice(start);
-  }
+
+  start = +start; //parse to int
+  return input.slice(start);
 });
 
 
@@ -77,7 +76,7 @@ myApp.filter('startFrom', function() {
               <i class="glyphicon glyphicon-search searchIcon"></i></div>
       </div>
       <div class="center">
-          <div ng-repeat="music in vm.results | startFrom:currentPage*pageSize | limitTo:pageSize" class="co-10 alert alert-secondary result" role="alert">
+          <div ng-repeat="music in vm.results | limitTo:(pageSizeoffset - list.length)" class="co-10 alert alert-secondary result" role="alert">
               <div class="co-2">
                   <img style="border-radius: 5px; border: 1px solid #383d41" width="80px" src={{music.artworkUrl100}}>
               </div>
