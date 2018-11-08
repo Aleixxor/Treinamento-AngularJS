@@ -1,15 +1,20 @@
 var myApp = angular.module('songSearch', ['ui.router']);
-var paginate, http;
+var http, count = 0;
 
 myApp.controller("listaMusicas", ['$http', listaMusicas]);
 
 function listaMusicas($http){
 
   this.searchBar;
-  this.paginate = {};
-  setValues($http);
   
-  console.log(this.paginate);
+  setValues($http);
+  this.results = getResults();
+  atualizeResults();
+  console.log(this.results);
+
+  function atualizeResults(){
+    results = getResults();
+  }
 }
 
 function setValues($http){
@@ -18,14 +23,23 @@ function setValues($http){
 
 function onSearch(){
   console.log(this.searchBar.value)
+  var result;
   this.http.get("https://localhost:5001/api/iTunes/search?term="+this.searchBar.value).then(function(data){
-    this.paginate = data.data.results;
-    console.log(getPaginate());
+    result = data.data.results;
+    this.results = data.data.results;
+    console.log(getResults());
   });
+  return result;
 }
 
-function getPaginate(){
-  return this.paginate;
+function getResults(){
+    if(this.results == undefined){
+        results = [{"wrapperType":"","kind":"","artistId":0,"collectionId":0,"trackId":0,"artistName":"","collectionName":"","trackName":"","collectionCensoredName":"","trackCensoredName":"","artistViewUrl":"","collectionViewUrl":"","trackViewUrl":"","previewUrl":"","artworkUrl30":"","artworkUrl60":"","artworkUrl100":"","collectionPrice":0,"trackPrice":0,"releaseDate":"","collectionExplicitness":"","trackExplicitness":"","discCount":0,"discNumber":0,"trackCount":0,"trackNumber":0,"trackTimeMillis":0,"country":"","currency":"","primaryGenreName":"","isStreamable":false}]
+    }
+    console.log("getResults: ");
+    console.log(this.results);
+    console.log("-----------------");
+  return this.results;
 }
 
 
@@ -36,25 +50,26 @@ function getPaginate(){
       template: `
       <div class="co-12 topbar row">
           <div><input name="search_bar" type="text" id="searchBar" ng-model="vm.searchBar" class="co-10" placeholder="Search for music..."></div>
-          <div type="button" class="searchButton center co-2" onclick="onSearch()">
+          <div type="button" class="searchButton center co-2" onclick="onSearch();vm.atualizeResults()">
               <i class="glyphicon glyphicon-search searchIcon"></i></div>
       </div>
       <div class="center">
-          <div  class="co-10 alert alert-secondary result" role="alert">
+          <div ng-repeat="music in vm" class="co-10 alert alert-secondary result" role="alert">
               <div class="co-2">
                   <img style="border-radius: 5px; border: 1px solid #383d41" width="80px" src="">
               </div>
-              sadsad
+              
               <div style="padding-top:10px" class="co-10">
-                  <h4 class="title">asdasdasd</h4>
-                  <span class="duration">asdasdsa</span>
+                  <h4 class="title">{{music}}</h4>
+                  <span class="duration" id="teste">{{music.primaryGenreName}}</span>
                   <br><br>
-                  <span class="artist">dsadasd</span>
+                  <span class="artist">{{music.artistName}}</span>
               </div>
           </div>
-          <div ng-if="vm.paginate.length == 0" ng-if="checked" class="co-10 result animate-if">
+          <div ng-if="vm.results.length == 0" class="co-10 result animate-if">
               <i class="glyphicon glyphicon-exclamation-sign"></i> No results found
           </div>
+          <div id="result"></div>
       </div>`
     }
   
@@ -62,25 +77,8 @@ function getPaginate(){
       name: 'result',
       url: '/result',
       template: `<main>
-      <section id="content" ng-controller="PaginationCtrl">
-          <h3>Paginação</h3>
-          <hr>
-          <ul>
-              <li ng-repeat="item in paginate.result.data">
-                  {{item.id}} - {{item.name}}
-              </li>
-          </ul>
-  
-          <ul>
-              <li>
-                  <a href="" ng-click="paginate.prev()"><span aria-hidden="true">Anterior</span></a>
-              </li>
-              <li>
-                  <a href="" ng-click="paginate.next()"><span aria-hidden="true">Próximo</span></a>
-              </li>
-          </ul>
-  
-          <p>Mostrando registros de {{paginate.result.from}} até {{paginate.result.to}} de um total de {{paginate.total}}</p>
+      <section id="content">
+          <h3>Pagina 2</h3>
       </section>
   </main>`
     }
