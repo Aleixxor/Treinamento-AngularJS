@@ -27,7 +27,16 @@
     cursor: pointer;
 }
 
+.searchButton:hover{
+    background-color: #465cc0ab;
+}
+
+.searchButton:active{
+    background-color: #334597;
+}
+
 .alert-secondary{
+    cursor: pointer;
     color: #383d41;
     background-color: #e2e3e5;
     border-color: #d6d8db;

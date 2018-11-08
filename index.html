@@ -4,32 +4,23 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="js/angular.min.js"></script>
-    <script src="js/angular-ui-router.min.js"></script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+    <script src="http://unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
     <script src="js/script.js"></script>
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLP9qH115r2PUuSXOer96KnJTewladGN8b8vLmMTJbzGAI8R-W" type="image/x-icon"/>
+    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLP9qH115r2PUuSXOer96KnJTewladGN8b8vLmMTJbzGAI8R-W" type="image/x-icon"/>
+
     <link href="css/style.css" rel="stylesheet">
 
 </head>
+ 
+<body ng-app="songSearch" ng-controller="listaMusicas as vm">
 
-<body ng-app="helloworld">
-    <!--<a ui-sref="hello" ui-sref-active="active">Hello</a>
-    <a ui-sref="about" ui-sref-active="active">About</a>
-    <ui-view></ui-view>-->
-    <div class="co-12 topbar row">
-        <div><input type="text" id="searchBar" class="co-10" placeholder="Procure sua música..."></div>
-        <div type="button" class="searchButton center co-2">
-            <i class="glyphicon glyphicon-search searchIcon"></i></div>
-    </div>
-    <div class="center">
-            <div class="co-10 alert alert-secondary result" role="alert">
-                    <h4 class="title">Title 1</h4>
-                    <h4 class="duration">0:00</h4>
-                    <br>
-                    <h4 class="artist">Artist 1</h4>
-                </div>
-    </div>
-</body>
+    <a ui-sref="search" ui-sref-active="active">Search</a>
+    <a ui-sref="result" ui-sref-active="active">Result</a>
+    <ui-view></ui-view>
+
+    
 
 </html>
