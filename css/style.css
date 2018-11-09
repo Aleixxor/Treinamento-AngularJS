@@ -149,13 +149,25 @@
 }
 
 .result .title{
-    float: left !important
+    float: left !important;
+    cursor: pointer;
+}
+
+.result .title:hover{
+    color: #4460ff;
 }
 .result .artist{
-    float: left !important
+    float: left !important;
 }
-.result .duration{
-    float: right !important
+.result .genre{
+    float: right !important;
+}
+
+.result .album{
+    border-radius: 5px; 
+    border: 1px solid #383d41;
+    width: 80px;
+    cursor: pointer;
 }
 .noRelativeFloat{
     position: unset !important;

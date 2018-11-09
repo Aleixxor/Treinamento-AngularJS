@@ -4,23 +4,30 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
-    <script src="http://unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
-    <script src="js/script.js"></script>
-    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLP9qH115r2PUuSXOer96KnJTewladGN8b8vLmMTJbzGAI8R-W" type="image/x-icon"/>
-    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLP9qH115r2PUuSXOer96KnJTewladGN8b8vLmMTJbzGAI8R-W" type="image/x-icon"/>
+
+    <link rel="icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLP9qH115r2PUuSXOer96KnJTewladGN8b8vLmMTJbzGAI8R-W"
+        type="image/x-icon" />
+    <link rel="shortcut icon" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLP9qH115r2PUuSXOer96KnJTewladGN8b8vLmMTJbzGAI8R-W"
+        type="image/x-icon" />
 
     <link href="css/style.css" rel="stylesheet">
 
 </head>
- 
-<body ng-app="songSearch" ng-controller="listaMusicas as vm">
 
-    <div style="padding-left: 15px"><a ui-sref="search" ui-sref-active="active">Search</a>
-    <a ui-sref="result" ui-sref-active="active">Result</a></div>
+<body ng-app="songSearch">
     <ui-view></ui-view>
-
     
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.5/angular.min.js"></script>
+    <script src="http://unpkg.com/@uirouter/angularjs/release/angular-ui-router.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/search.js"></script>
+    <script src="js/result.js"></script>
+</body>
 
 </html>
+
+
+<!-- <div class="co-1 playPreview" ng-click="vm.playPreview(vm.selectedMusic.previewUrl)">
+    <span ng-if="(vm.isPlaying == false) || (vm.selectedMusic.previewUrl != vm.preview.url)" style="font-size: 40px;" class="glyphicon glyphicon-play"></span>
+    <span ng-if="(vm.isPlaying == true) && (vm.selectedMusic.previewUrl == vm.preview.url)" style="font-size: 40px;" class="glyphicon glyphicon-pause"></span>
+  </div> -->
