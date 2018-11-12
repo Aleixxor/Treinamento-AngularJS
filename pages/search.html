@@ -1,18 +1,14 @@
 <div>
-    <div class="co-12 topbar row">
-        <div><input name="search_bar" type="text" id="searchBar" ng-model="vm.searchBar" class="co-10" placeholder="Search for music..."></div>
-        <div type="button" class="searchButton center co-2" ng-click="vm.onSearch()">
-            <i class="glyphicon glyphicon-search searchIcon"></i></div>
-    </div>
+    
 
     <div class="center">
         <div ng-repeat="music in vm.resultPage" class="co-10 alert alert-secondary result" role="alert">
             <div class="co-2 " style="min-width: 86px">
-                <img class="album" src={{music.artworkUrl100}}>
+                <img class="album" src={{music.artworkUrl100}} ng-click="vm.selectedMusic = music" ui-sref="app.searchBar.result({trackId: music.trackId})">
             </div>
 
             <div style="padding-top:10px" class="co-9">
-                <h4 class="title" ng-click="vm.selectedMusic = music" ui-sref="app.result({trackId: 960345407})">
+                <h4 class="title" ng-click="vm.selectedMusic = music" ui-sref="app.searchBar.result({trackId: music.trackId})">
                     {{ music.trackName ? music.trackName : music.collectionName }}
                 </h4>
                 <span class="genre">{{music.primaryGenreName}}</span>
@@ -32,9 +28,14 @@
         </div>
         <br><br><br>
         <div ng-if="vm.results.length != undefined" class="co-12">
-            <button ng-disabled="vm.currentPage == 0" ng-click="vm.previousPage()"> Previous </button>
+            <button ng-disabled="vm.currentPage == 0" ui-sref="app.searchBar.search({currentPage: vm.currentPage-1, searchValue: vm.searchValue})"> Previous </button>
             Page {{vm.currentPage+1}} of {{vm.numberOfPages()}}
-            <button ng-disabled="vm.currentPage > ({{vm.numberOfPages()}}-2)" ng-click="vm.nextPage()">Next</button>
+            <button ng-disabled="vm.currentPage > ({{vm.numberOfPages()}}-2)" ui-sref="app.searchBar.search({currentPage: vm.currentPage+1, searchValue: vm.searchValue})">Next</button>
+            <!-- ng-click="vm.previousPage()"
+            ng-click="vm.nextPage()" 
+        
+                NG-CLICK NÃO DEIXA O UI-SREF FUNCIONAR
+            -->
         </div>
     </div>
 </div>

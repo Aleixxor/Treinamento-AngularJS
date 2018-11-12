@@ -1,21 +1,26 @@
 <div class="center">
     <div class="co-10 alert alert-secondary result" role="alert">
         <div class="co-2 " style="min-width: 86px">
-            <img class="album" src={{vm.selectedMusic.artworkUrl100}}>
+            <img class="album" src={{vm.selectedMusic.artworkUrl100}} ng-click="vm.openPage(vm.selectedMusic.trackViewUrl)">
         </div>
         
         <div style="padding-top:10px" class="co-10">
-            <h4 ng-if="vm.selectedMusic.trackName != null" class="title" ui-sref="result">{{vm.selectedMusic.trackName}}</h4>
-            <h4 ng-if="vm.selectedMusic.trackName == null" class="title" ui-sref="result">{{vm.selectedMusic.collectionName}}</h4>
+            <h4 ng-if="vm.selectedMusic.trackName != null" class="title" ng-click="vm.openPage(vm.selectedMusic.trackViewUrl)">{{vm.selectedMusic.trackName}}</h4>
+            <h4 ng-if="vm.selectedMusic.trackName == null" class="title" ng-click="vm.openPage(vm.selectedMusic.trackViewUrl)">{{vm.selectedMusic.collectionName}}</h4>
             <span class="genre">{{vm.selectedMusic.primaryGenreName}}</span>
             <br><span class="genre">{{vm.selectedMusic.kind}}</span>
             <br>
-            <span class="artist">{{vm.selectedMusic.artistName}}</span>
+            <span class="artist" style="cursor: pointer" ng-click="vm.openPage(vm.selectedMusic.artistViewUrl)">{{vm.selectedMusic.artistName}}</span>
         </div>
         <div class="co-12 playPreview" ng-click="vm.playPreview(vm.selectedMusic.previewUrl)">
         <h2>See Preview:</h2>
-        <audio ng-if="vm.selectedMusic.kind == 'song'" controls src={{vm.selectedMusic.previewUrl}}></audio>
-        <video ng-if="vm.selectedMusic.kind == 'feature-movie'" controls src={{vm.selectedMusic.previewUrl}}></video>
+        <center>
+        <div class="co-10">
+            <audio ng-if="vm.selectedMusic.kind == 'song'" controls src={{vm.selectedMusic.previewUrl}}></audio>
+            <video class="co-10" ng-if="vm.selectedMusic.kind == 'feature-movie'" controls src={{vm.selectedMusic.previewUrl}}></video>
+        </div>
+    </center>
+        
         <br>
         <h3>More Info:</h3>
         <p>{{vm.selectedMusic.artistName}}</p>

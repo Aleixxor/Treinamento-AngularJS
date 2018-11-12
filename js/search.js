@@ -1,30 +1,44 @@
+var isSearching = false;
+
 (function() {
   angular.module("songSearch").component("cSearch", {
     templateUrl: "/pages/search.html",
     controller: ["$http", "$state", SearchCtrl],
-    controllerAs: "vm"
+    controllerAs: "vm",
+    bindings: {
+      $transition$: "<"
+    }
   });
 
   function SearchCtrl($http, $state) {
     const vm = this;
 
-    this.$onInit = function() {
-      console.log("$onInit");
-    };
-
     vm.isPlaying = false;
     console.log($state);
     vm.onSearch = onSearch;
     vm.numberOfPages = numberOfPages;
-    vm.currentPage = 0;
+    vm.currentPage;
     vm.pageSize = 10;
     vm.resultPage = [];
-    vm.previousPage = previousPage;
-    vm.nextPage = nextPage;
+    // vm.previousPage = previousPage;
+    // vm.nextPage = nextPage;
     vm.playPreview = playPreview;
     vm.preview = { audio: "", url: "" };
     vm.selectedMusic = null;
-    this.searchBar;
+    vm.searchValue;
+
+    this.$onInit = function() {
+      console.log("isSearching: " + isSearching);
+      isSearching = true;
+      console.log("isSearching: " + isSearching);
+      vm.searchValue = vm.$transition$.params().searchValue;
+      // console.log("searchValue: " + vm.searchValue);
+
+      vm.currentPage = parseInt(vm.$transition$.params().currentPage);
+      // console.log("$transition$: " + vm.$transition$.params().currentPage);
+      // console.log("vm.currentPage: " + vm.currentPage);
+      onSearch();
+    };
 
     this.results = getResults();
     atualizeResults();
@@ -40,17 +54,19 @@
     }
 
     function onSearch() {
-      console.log(searchBar.value);
-      var result;
+      console.log(vm.searchValue);
+      let result;
       $http
-        .get("https://localhost:5001/api/iTunes/search?term=" + searchBar.value)
+        .get(
+          "https://localhost:5001/api/iTunes/search?term=" +
+            vm.searchValue +
+            "&limit=50"
+        )
         .then(function(data) {
           result = data.data.results;
           vm.results = data.data.results;
           console.log(getResults());
-          vm.currentPage = 0;
           changeResultPage();
-          $state.go("app.search");
         });
       return result;
     }
@@ -65,21 +81,21 @@
       return vm.results;
     }
 
-    function nextPage() {
-      vm.currentPage = vm.currentPage + 1;
-      changeResultPage();
-    }
+    // function nextPage() {
+    //   vm.currentPage = vm.currentPage + 1;
+    //   changeResultPage();
+    // }
 
-    function previousPage() {
-      vm.currentPage = vm.currentPage - 1;
-      changeResultPage();
-    }
+    // function previousPage() {
+    //   vm.currentPage = vm.currentPage - 1;
+    //   changeResultPage();
+    // }
 
     function changeResultPage() {
       vm.resultPage = [];
       console.log("Current page: " + vm.currentPage);
-      for (var i = 0; i < 10 && i < vm.results.length; i++) {
-        var position = i + 10 * vm.currentPage;
+      for (let i = 0; i < 10 && i < vm.results.length; i++) {
+        let position = i + 10 * vm.currentPage;
         console.log(position);
         vm.resultPage.push(vm.results[position]);
       }

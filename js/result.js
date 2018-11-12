@@ -12,6 +12,7 @@
     const vm = this;
     vm.selectedMusic = {};
     vm.trackId = 0;
+    vm.openPage = openPage;
 
     this.$onInit = function() {
       console.log("$onInit");
@@ -27,5 +28,10 @@
 
     vm.isPlaying = false;
     vm.selectedMusic = null;
+
+    function openPage(url) {
+      console.log(vm.selectedMusic.trackViewUrl);
+      window.open(url);
+    }
   }
 })();
