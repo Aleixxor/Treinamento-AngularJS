@@ -3,9 +3,6 @@
       templateUrl: "/pages/main.html",
       controller: ["$state", MainCtrl],
       controllerAs: "vm",
-      bindings: {
-        $transition$: "<"
-      }
     });
   
     function MainCtrl($state) {
