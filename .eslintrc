@@ -1,0 +1,18 @@
+{
+    "extends": ["plugin:prettier/recommended", "prettier"],
+    "env": {
+        "amd": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6,
+        "sourceType": "module"
+    },
+    "plugins": ["prettier"],
+    "globals": {
+        "angular": true
+    },
+    "rules": {
+        "prettier/prettier": ["error"],
+        "no-nested-ternary": ["error"]
+    }
+}

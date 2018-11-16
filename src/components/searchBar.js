@@ -1,6 +1,6 @@
 (function() {
   angular.module("songSearch").component("cSearchBar", {
-    templateUrl: "/pages/searchBar.html",
+    templateUrl: "components/searchBar.html",
     controller: ["$state", SearchBarCtrl],
     controllerAs: "vm",
   });

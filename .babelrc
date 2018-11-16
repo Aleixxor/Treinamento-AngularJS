@@ -1,0 +1,19 @@
+{
+    "presets": [
+        [
+        "@babel/preset-env",
+        {
+            "targets": {
+            "browsers": [
+                "last 2 version",
+                "not dead",
+                ">= 1%",
+                "ie 10-11",
+                "firefox esr"
+            ]
+            }
+        }
+        ]
+    ],
+    "plugins": [["angularjs-annotate", { "explicitOnly": true }]]
+}

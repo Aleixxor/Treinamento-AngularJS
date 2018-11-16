@@ -1,6 +1,6 @@
 (function() {
   angular.module("songSearch").component("cResult", {
-    templateUrl: "/pages/result.html",
+    templateUrl: "components/result.html",
     controller: ["$http", "$state", ResultCtrl],
     controllerAs: "vm",
     bindings: {

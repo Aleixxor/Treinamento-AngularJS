@@ -2,7 +2,7 @@ var isSearching = false;
 
 (function() {
   angular.module("songSearch").component("cSearch", {
-    templateUrl: "/pages/search.html",
+    templateUrl: "components/search.html",
     controller: ["$http", "$state", SearchCtrl],
     controllerAs: "vm",
     bindings: {
