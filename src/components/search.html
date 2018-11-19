@@ -4,11 +4,11 @@
     <div class="center">
         <div ng-repeat="music in vm.resultPage" class="co-10 alert alert-secondary result" role="alert">
             <div class="co-2 " style="min-width: 86px">
-                <img class="album" src={{music.artworkUrl100}} ng-click="vm.selectedMusic = music" ui-sref="app.searchBar.result({trackId: music.trackId})">
+                <img class="album" src={{music.artworkUrl100}} ng-click="vm.selectedMusic = music" ui-sref="songSearch.searchBar.result({trackId: music.trackId})">
             </div>
 
             <div style="padding-top:10px" class="co-9">
-                <h4 class="title" ng-click="vm.selectedMusic = music" ui-sref="app.searchBar.result({trackId: music.trackId})">
+                <h4 class="title" ng-click="vm.selectedMusic = music" ui-sref="songSearch.searchBar.result({trackId: music.trackId})">
                     {{ music.trackName ? music.trackName : music.collectionName }}
                 </h4>
                 <span class="genre">{{music.primaryGenreName}}</span>
@@ -28,9 +28,9 @@
         </div>
         <br><br><br>
         <div ng-if="vm.results.length != undefined" class="co-12">
-            <button ng-disabled="vm.currentPage == 0" ui-sref="app.searchBar.search({currentPage: vm.currentPage-1, searchValue: vm.searchValue})"> Previous </button>
+            <button ng-disabled="vm.currentPage == 0" ui-sref="songSearch.searchBar.search({currentPage: vm.currentPage-1, searchValue: vm.searchValue})"> Previous </button>
             Page {{vm.currentPage+1}} of {{vm.numberOfPages()}}
-            <button ng-disabled="vm.currentPage > ({{vm.numberOfPages()}}-2)" ui-sref="app.searchBar.search({currentPage: vm.currentPage+1, searchValue: vm.searchValue})">Next</button>
+            <button ng-disabled="vm.currentPage > ({{vm.numberOfPages()}}-2)" ui-sref="songSearch.searchBar.search({currentPage: vm.currentPage+1, searchValue: vm.searchValue})">Next</button>
             <!-- ng-click="vm.previousPage()"
             ng-click="vm.nextPage()" 
         
